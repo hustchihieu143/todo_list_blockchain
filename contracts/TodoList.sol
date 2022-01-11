@@ -13,12 +13,16 @@ contract TodoList {
 
   mapping (uint => Task) tasks;
 
+  event taskCreated(uint nextId, string _content, string _memory);
+
   Task[] listTask;
 
   function createTask(string memory _content, string memory _author) external {
     tasks[nextId] = (Task(nextId, block.timestamp, _content, _author, false));
     listTask.push(Task(nextId, block.timestamp, _content, _author, false));
+    emit taskCreated(nextId, _content, _author);
     nextId++;
+    
   }
 
   function getTask(uint _id) external view returns (uint, uint, string memory, string memory, bool) {
